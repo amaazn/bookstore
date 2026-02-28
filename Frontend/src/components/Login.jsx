@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
 function Login() {
+  const [authUser, setAuthUser] = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,19 +22,22 @@ function Login() {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          toast.success("Loggedin Successfully");
+          toast.success("Loggedin Successfully"); // after succesfully login remove the modal
           document.getElementById("my_modal_3").close();
-          setTimeout(() => {
-            window.location.reload();
-            localStorage.setItem("Users", JSON.stringify(res.data.user));
-          }, 1000);
+          // setTimeout(() => {
+          //   window.location.reload();  // for logout button visiblity
+          //   localStorage.setItem("Users", JSON.stringify(res.data.user));
+
+          // }, 1000);
+          localStorage.setItem("Users", JSON.stringify(res.data.user));
+          setAuthUser(res.data.user);
         }
       })
       .catch((err) => {
         if (err.response) {
           console.log(err);
           toast.error("Error: " + err.response.data.message);
-          setTimeout(() => {}, 2000);
+          setTimeout(() => {}, 2000); // do nothing toast diassper beacuse of  his internal working
         }
       });
   };

@@ -21,17 +21,17 @@ function Signup() {
       password: data.password,
     };
     await axios
-      .post("http://localhost:4001/user/signup", userInfo)
+      .post("http://localhost:4001/user/signup", userInfo) // async function because calling api
       .then((res) => {
         console.log(res.data);
         if (res.data) {
           toast.success("Signup Successfully");
           navigate(from, { replace: true });
         }
-        localStorage.setItem("Users", JSON.stringify(res.data.user));
+        //localStorage.setItem("Users", JSON.stringify(res.data.user));
       })
-      .catch((err) => {
-        if (err.response) {
+      .catch((err) => {  // status code 400/500 useralready exist also
+        if (err.response) {   // kuch jab iska error aya tab ye network mai gya aur waha se response laya
           console.log(err);
           toast.error("Error: " + err.response.data.message);
         }

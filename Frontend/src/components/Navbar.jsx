@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
@@ -9,7 +10,7 @@ function Navbar() {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
-  const element = document.documentElement; // browser ke root  element ko target
+  const element = document.documentElement; // browser ke root  element ko target <html> 
   useEffect(() => {
     if (theme === "dark") {
       element.classList.add("dark"); // add in html whole
@@ -39,10 +40,10 @@ function Navbar() {
   const navItems = (
     <>
       <li>
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a href="/course">Course</a>
+       <Link to="/Course">courses</Link>
       </li>
       <li>
         <a>Contact</a>

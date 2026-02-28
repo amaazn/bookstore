@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
 
 function Logout() {
-  const [authUser, setAuthUser] = useAuth();
+  const [authUser, setAuthUser] = useAuth(); // with help of react context ,bc custom hook
   const handleLogout = () => {
     try {
       setAuthUser({
@@ -13,9 +13,10 @@ function Logout() {
       localStorage.removeItem("Users");
       toast.success("Logout successfully");
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      // setTimeout(() => {                // button visiblity ke lie lagay hai set time out
+      //   window.location.reload();  // navbar mai change ho rha hai authuser may be uske liye reload login dikhane k liye
+      // }, 3000);
+      setAuthUser(null);
     } catch (error) {
       toast.error("Error: " + error);
       setTimeout(() => {}, 2000);
